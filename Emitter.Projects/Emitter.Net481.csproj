@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\Emitter.Net472\</OutputPath>
+    <OutputPath>..\bin\Debug\Emitter.Net481\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SSL,FX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
