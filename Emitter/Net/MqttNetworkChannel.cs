@@ -263,13 +263,7 @@ namespace Emitter
                 this.sslStream = new SslStream(this.socket);
 #else
                 this.netStream = new NetworkStream(this.socket);
-
-                // this is a production implemenation 
-                //this.sslStream = new SslStream(this.netStream, false, this.userCertificateValidationCallback, this.userCertificateSelectionCallback);
-
-                // this is for self signed certs
-                this.sslStream = new SslStream(this.netStream, false, (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>true, 
-                                                                      (object sender, string targetHost, X509CertificateCollection localCertificates, X509Certificate remoteCertificate, string[] acceptableIssuers) =>null);
+                this.sslStream = new SslStream(this.netStream, false, this.userCertificateValidationCallback, this.userCertificateSelectionCallback);
 #endif
 
                 // server authentication (SSL/TLS handshake)
