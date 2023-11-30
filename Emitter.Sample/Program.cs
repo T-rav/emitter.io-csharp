@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Text;
-using System.Threading;
-using Emitter;
 using Emitter.Messages;
 using Emitter.Utility;
 
@@ -12,10 +9,17 @@ namespace Emitter.Sample
     {
         static void Main(string[] args)
         {
-            var channelKey = "VP1suiS7cEfori1zoME_fd8Zm0arr4D6"; // Insert your own key here.
+            var channelKey = "VP1suiS7cEfori1zoME_fd8Zm0arr4D6";
             var channel = "test/";
+            var url = "192.168.86.247";
 
-            using (var emitter = Connection.Establish(channelKey, "192.168.86.247", 443, true))
+            // =============================
+
+            //var channelKey = "bmJA7A3D3soLAyagVMwGCB9EffKBsuGa"; 
+            //var channel = "staging/solver/status/";
+            //var url = "playerfirst-staging-emitter.azurewebsites.net";
+
+            using (var emitter = Connection.Establish(channelKey, url, 80, false))
             {
                 emitter.Error += (object sender, Exception e) => { Console.WriteLine("Error:" + e.Message); };
                 emitter.PresenceSubscribe(channelKey, channel, false, (PresenceEvent e) => { Console.WriteLine("Presence event " + e.Event + "."); });
@@ -23,7 +27,7 @@ namespace Emitter.Sample
 
                 // Handle chat messages
                 emitter.Subscribe(channel,
-                    (chan, msg) => { Console.WriteLine(Encoding.UTF8.GetString(msg)); },
+                    (chan, msg) => { Console.WriteLine("GOT > " + Encoding.UTF8.GetString(msg)); },
                     Options.WithFrom(DateTime.UtcNow.AddHours(-1)),
                     Options.WithUntil(DateTime.UtcNow),
                     Options.WithLast(10_000));
@@ -44,6 +48,7 @@ namespace Emitter.Sample
                 while (text != "q");
             }
         }
+
 
     }
 }
